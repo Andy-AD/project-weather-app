@@ -1,5 +1,14 @@
 import "./style.css";
 
+const searchBtn = document.getElementById("search");
+const searchField = document.getElementById("input-city");
+
+searchBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  showWeather(searchField.value);
+  searchField.value = "";
+});
+
 async function getCoordinates(location) {
   if (!location) return;
   try {
@@ -31,11 +40,13 @@ async function getWeather({ lat, lon }) {
     console.log(err);
   }
 }
-getCoordinates("Calgary")
-  .then(getWeather)
-  .then((response) => {
-    console.log(response);
-  })
-  .catch((err) => {
+
+async function showWeather(city) {
+  if (!city) return;
+  try {
+    const weatherDetails = await getCoordinates(city).then(getWeather);
+    console.log(weatherDetails);
+  } catch (err) {
     console.log(err);
-  });
+  }
+}
