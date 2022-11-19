@@ -25,12 +25,12 @@ async function weatherHandler(city) {
 async function getWeatherData(city) {
   try {
     const cityCoordinates = await fetch(
-      `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=4b7532780c2ede1a5223f0e7284a89f0`
+      `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=4b7532780c2ede1a5223f0e7284a89f0`
     ).then((response) => {
       return response.json();
     });
     const weatherData = await fetch(
-      `http://api.openweathermap.org/data/2.5/weather?lat=${cityCoordinates[0].lat}&lon=${cityCoordinates[0].lon}&APPID=4b7532780c2ede1a5223f0e7284a89f0&units=metric`
+      `https://api.openweathermap.org/data/2.5/weather?lat=${cityCoordinates[0].lat}&lon=${cityCoordinates[0].lon}&APPID=4b7532780c2ede1a5223f0e7284a89f0&units=metric`
     ).then((response) => {
       return response.json();
     });
@@ -42,7 +42,7 @@ async function getWeatherData(city) {
 
 async function displayWeather(weather) {
   const icon = document.createElement("img");
-  icon.src = `http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`;
+  icon.src = `https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`;
   iconDisplay.appendChild(icon);
   areaNameDisplay.textContent = `${weather.name}, ${weather.sys.country}`;
   tempDisplay.textContent = `${Math.round(weather.main.temp)}\u00B0 C`;
@@ -51,3 +51,5 @@ async function displayWeather(weather) {
   )}\u00B0 C. | ${weather.weather[0].description}`;
   console.log(weather)
 }
+
+weatherHandler("Zdolbuniv");
